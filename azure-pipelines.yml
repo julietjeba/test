@@ -1,0 +1,70 @@
+name: '2024.07.$(Build.BuildId)'
+
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - src/*
+    exclude:
+      - '*.xml'
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+- stage: Build
+  displayName: 'Build Stage'
+  jobs:
+  - job: Build
+    displayName: 'Build Job'
+    steps:
+    - script: echo Hello, world!
+      displayName: 'Run a one-line script in Build Stage'
+    - script: |
+        echo This is the build stage.
+        echo Add other tasks to build your project here.
+      displayName: 'Run a multi-line script in Build Stage'
+
+- stage: UI_Tests
+  displayName: 'UI Tests Stage'
+  dependsOn: Build
+  jobs:
+  - job: UI_Tests
+    displayName: 'UI Tests Job'
+    steps:
+    - script: echo Running UI Tests...
+      displayName: 'Run a one-line script in UI Tests Stage'
+    - script: |
+        echo This is the UI tests stage.
+        echo Add UI test scripts here.
+      displayName: 'Run a multi-line script in UI Tests Stage'
+
+- stage: API_Tests
+  displayName: 'API Tests Stage'
+  dependsOn: Build
+  jobs:
+  - job: API_Tests
+    displayName: 'API Tests Job'
+    steps:
+    - script: echo Running API Tests...
+      displayName: 'Run a one-line script in API Tests Stage'
+    - script: |
+        echo This is the API tests stage.
+        echo Add API test scripts here.
+      displayName: 'Run a multi-line script in API Tests Stage'
+
+- stage: E2E_Tests
+  displayName: 'E2E Tests Stage'
+  dependsOn: Build
+  jobs:
+  - job: E2E_Tests
+    displayName: 'E2E Tests Job'
+    steps:
+    - script: echo Running E2E Tests...
+      displayName: 'Run a one-line script in E2E Tests Stage'
+    - script: |
+        echo This is the E2E tests stage.
+        echo Add E2E test scripts here.
+      displayName: 'Run a multi-line script in E2E Tests Stage'
